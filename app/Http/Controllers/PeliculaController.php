@@ -20,6 +20,7 @@ class PeliculaController extends Controller
     public function create()
     {
         return view('peliculas.create');
+        
     }
 
 
@@ -38,37 +39,26 @@ class PeliculaController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pelicula  $pelicula
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Pelicula $pelicula)
     {
-        //
+        return view('peliculas.edit', compact('pelicula'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pelicula  $pelicula
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Pelicula $pelicula)
     {
-        //
+        $pelicula = $pelicula->update(
+            $request->all()
+        );
+
+        return redirect()->route('pelicula.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Pelicula  $pelicula
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Pelicula $pelicula)
+
+    public function destroy($id)
     {
-        //
+        Pelicula::destroy($id);
+        return redirect()-> route(route:'pelicula.index')-> with('mensaje','Se elimino de manera exitosa');
     }
 }
